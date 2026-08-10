@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="简洁、快速的 YouTube 音频下载工具">
+  <title>Sonora — YouTube 音频下载</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <main>
+    <div class="page-heading">
+      <h1 class="page-title">YouTube 音频提取</h1>
+      <p>下载音频或导出视频已有字幕</p>
+    </div>
+    <section class="card" aria-labelledby="download-title">
+      <div class="card-top"><span>01</span><h2 id="download-title">开始下载</h2><span class="line"></span></div>
+      <form id="form">
+        <fieldset class="mode-field"><legend>处理方式</legend><div class="segmented mode-select">
+          <label><input type="radio" name="mode" value="audio" checked><span>提取音频</span></label>
+          <label><input type="radio" name="mode" value="video"><span>下载视频</span></label>
+          <label><input type="radio" name="mode" value="subtitle"><span>提取字幕</span></label>
+        </div></fieldset>
+        <label for="url">YouTube 链接</label>
+        <div class="url-row">
+          <div class="url-input"><span class="play">▶</span><input id="url" type="url" required autocomplete="off" placeholder="https://www.youtube.com/watch?v=..."></div>
+          <button type="button" id="preview" class="secondary">识别视频</button>
+        </div>
+        <div id="video" class="video hidden">
+          <img id="thumbnail" alt="视频缩略图">
+          <div><strong id="title"></strong><span id="meta"></span></div>
+        </div>
+        <div class="options" id="audio-options">
+          <fieldset><legend>音频格式</legend><div class="segmented">
+            <label><input type="radio" name="format" value="mp3" checked><span>MP3</span></label>
+            <label><input type="radio" name="format" value="m4a"><span>M4A</span></label>
+            <label><input type="radio" name="format" value="opus"><span>OPUS</span></label>
+          </div></fieldset>
+          <label>音质<select id="quality"><option value="128">128 kbps · 标准</option><option value="192" selected>192 kbps · 推荐</option><option value="256">256 kbps · 高品质</option><option value="320">320 kbps · 极致</option></select></label>
+        </div>
+        <div id="subtitle-options" class="subtitle-options hidden">
+          <label for="subtitle-language">字幕语言</label>
+          <select id="subtitle-language" disabled><option value="">识别视频后自动选择</option></select>
+          <p>仅提取已有字幕，并根据时间间隔添加标点和段落；不总结、不改写、不翻译。</p>
+        </div>
+        <div id="video-options" class="video-options hidden">
+          <label for="video-quality">视频画质</label>
+          <select id="video-quality"><option value="720">最高 720p</option><option value="1080" selected>最高 1080p</option><option value="best">最佳画质</option></select>
+          <p><strong>静音版：</strong>“下载静音视频”只保存视频画面。如需声音，请点击“合并音频”。</p>
+        </div>
+        <p id="error" class="error" role="alert"></p>
+        <div class="action-row">
+          <button class="download" id="submit" type="submit"><span>提取音频</span><b>↓</b></button>
+          <button class="download merge-button hidden" id="merge-video" type="submit"><span>合并音频</span></button>
+        </div>
+      </form>
+      <div id="progress" class="progress hidden" aria-live="polite">
+        <div class="progress-head"><span id="status">准备中…</span><b id="percent">0%</b></div>
+        <div class="track"><i id="bar"></i></div>
+      </div>
+      <div id="done" class="done hidden"><div class="done-icon">✓</div><div><strong id="done-title">文件已准备好</strong><span id="filename"></span></div><a id="file" class="save" href="#">保存文件</a></div>
+      <p class="legal">仅供下载你拥有版权或已获授权的内容。使用即表示你同意遵守 YouTube 服务条款及当地法律。</p>
+    </section>
+  </main>
+  <script src="/app.js"></script>
+</body>
+</html>

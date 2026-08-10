@@ -1,0 +1,46 @@
+{
+  "name": "sonora-windows",
+  "version": "1.1.0",
+  "private": true,
+  "description": "Sonora YouTube audio extractor for Windows",
+  "author": "Sonora",
+  "main": "main.js",
+  "scripts": {
+    "dist": "electron-builder --win --x64"
+  },
+  "devDependencies": {
+    "electron": "latest",
+    "electron-builder": "latest"
+  },
+  "build": {
+    "appId": "local.sonora.audio",
+    "productName": "Sonora",
+    "asar": true,
+    "directories": {
+      "output": "../release-windows"
+    },
+    "files": [
+      "main.js",
+      "app/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "tools",
+        "to": "tools",
+        "filter": ["**/*"]
+      }
+    ],
+    "win": {
+      "target": [
+        { "target": "nsis", "arch": ["x64"] },
+        { "target": "portable", "arch": ["x64"] }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  }
+}
