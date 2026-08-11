@@ -17,7 +17,8 @@ Sonora 是一个本地运行的 YouTube 媒体工具，提供音频提取、视�
 - 自动跟随系统深浅模式的液态玻璃界面
 - 支持本地网页、macOS App 和 Windows Electron App
 
-<img width="3508" height="2480" alt="Untitled_Artwork" src="https://github.com/user-attachments/assets/0941ff7e-0e05-4b74-81d7-66367b82e3ea" />
+<img width="2376" height="1919" alt="Untitled_Artwork" src="https://github.com/user-attachments/assets/7c9fb682-28df-40a3-93e9-df05139e7356" />
+
 
 ## Web 版本
 
