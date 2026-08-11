@@ -35,6 +35,10 @@ Extract the repository to a simple path such as `C:\Sonora`, then double-click `
 
 No VS Code, Codex, Python, or preinstalled Node.js is required on the Windows build machine.
 
+## macOS app
+
+Release builds bundle Universal Node.js, yt-dlp, and FFmpeg binaries. They run on Intel and Apple Silicon Macs without Homebrew, Python, a separate Node.js installation, or the source directory. The minimum supported system is macOS 11.3. Unsigned and unnotarized local builds may be blocked by Gatekeeper.
+
 ## Tests
 
 ```bash

@@ -58,14 +58,14 @@ HOST=0.0.0.0 PORT=3000 npm start
 
 ## macOS
 
-项目提供原生 AppKit + WKWebView 窗口源码，位于 `packaging/SonoraApp.m`。本地开发版依赖电脑已有的 Node.js；项目内 `.venv` 提供 yt-dlp、FFmpeg 和 CA 证书。
+项目提供原生 AppKit + WKWebView 窗口源码，位于 `packaging/SonoraApp.m`。Release 版将 Universal Node.js、yt-dlp 和 FFmpeg 放在 App 内，无需 Homebrew、Python、Node.js 或项目目录，支持 Intel 与 Apple Silicon，最低系统版本为 macOS 11.3。
 
 也可以在 Finder 中双击：
 
 - `启动 Sonora.command`：仅本机访问
 - `启动 Sonora 内网.command`：允许可信局域网访问
 
-生成的 `Sonora.app` 不提交到源码仓库，正式发布时应作为 GitHub Release 附件上传。未经 Developer ID 签名和 Apple 公证的版本可能被 Gatekeeper 拦截。
+生成的 `Sonora.app` 不提交到源码仓库，正式发布时应压缩为 ZIP 并作为 GitHub Release 附件上传。未经 Developer ID 签名和 Apple 公证的版本可能被 Gatekeeper 拦截。
 
 ## Windows 10/11 x64
 

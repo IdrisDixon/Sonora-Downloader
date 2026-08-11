@@ -76,9 +76,14 @@
 }
 
 - (void)startServer {
-    NSString *node = [self nodePath];
     NSString *resources = NSBundle.mainBundle.resourcePath;
-    if (!node || !resources) { [self showError:@"未找到 Node.js，请先安装 Node.js 20 或更高版本。"]; return; }
+    if (!resources) { [self showError:@"无法读取应用资源。"]; return; }
+
+    NSString *tools = [resources stringByAppendingPathComponent:@"tools"];
+    NSString *bundledNode = [tools stringByAppendingPathComponent:@"node"];
+    NSString *node = [[NSFileManager defaultManager] isExecutableFileAtPath:bundledNode]
+        ? bundledNode : [self nodePath];
+    if (!node) { [self showError:@"未找到内置 Node.js，应用可能不完整。"]; return; }
 
     NSString *appDir = [resources stringByAppendingPathComponent:@"app"];
     NSString *logDir = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Logs/Sonora"];
@@ -95,6 +100,10 @@
     self.server.currentDirectoryURL = [NSURL fileURLWithPath:appDir];
     NSMutableDictionary *env = [NSProcessInfo.processInfo.environment mutableCopy];
     env[@"HOST"] = @"127.0.0.1"; env[@"PORT"] = @"3000";
+    NSString *ytdlp = [tools stringByAppendingPathComponent:@"yt-dlp"];
+    NSString *ffmpeg = [tools stringByAppendingPathComponent:@"ffmpeg"];
+    if ([[NSFileManager defaultManager] isExecutableFileAtPath:ytdlp]) env[@"SONORA_YTDLP"] = ytdlp;
+    if ([[NSFileManager defaultManager] isExecutableFileAtPath:ffmpeg]) env[@"SONORA_FFMPEG"] = ffmpeg;
     self.server.environment = env;
     self.server.standardOutput = log; self.server.standardError = log;
     NSError *error = nil;
@@ -146,14 +155,14 @@
 
 - (void)webView:(WKWebView *)webView
  navigationResponse:(WKNavigationResponse *)navigationResponse
-      didBecomeDownload:(WKDownload *)download API_AVAILABLE(macos(11.0)) {
+      didBecomeDownload:(WKDownload *)download API_AVAILABLE(macos(11.3)) {
     download.delegate = self;
 }
 
 - (void)download:(WKDownload *)download
     decideDestinationUsingResponse:(NSURLResponse *)response
                  suggestedFilename:(NSString *)suggestedFilename
-                 completionHandler:(void (^)(NSURL * _Nullable destination))completionHandler API_AVAILABLE(macos(11.0)) {
+                 completionHandler:(void (^)(NSURL * _Nullable destination))completionHandler API_AVAILABLE(macos(11.3)) {
     NSSavePanel *panel = [NSSavePanel savePanel];
     panel.nameFieldStringValue = suggestedFilename.length ? suggestedFilename : @"audio.mp3";
     panel.canCreateDirectories = YES;
@@ -162,7 +171,7 @@
     else completionHandler(nil);
 }
 
-- (void)downloadDidFinish:(WKDownload *)download API_AVAILABLE(macos(11.0)) {
+- (void)downloadDidFinish:(WKDownload *)download API_AVAILABLE(macos(11.3)) {
     NSUserNotification *notice = [NSUserNotification new];
     notice.title = @"Sonora";
     notice.informativeText = @"音频已保存";
@@ -171,7 +180,7 @@
 
 - (void)download:(WKDownload *)download
  didFailWithError:(NSError *)error
-       resumeData:(NSData *)resumeData API_AVAILABLE(macos(11.0)) {
+       resumeData:(NSData *)resumeData API_AVAILABLE(macos(11.3)) {
     if (error.code == NSUserCancelledError) return;
     NSAlert *alert = [NSAlert new];
     alert.messageText = @"保存失败";

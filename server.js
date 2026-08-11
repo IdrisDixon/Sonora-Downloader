@@ -404,7 +404,7 @@ cleanup.unref();
 if (require.main === module) {
   server.listen(PORT, HOST, () => {
     console.log(`Sonora 已启动：http://${HOST}:${PORT}`);
-    console.log(`yt-dlp：${USE_LOCAL_YTDLP ? LOCAL_YTDLP : '系统 PATH'}`);
+    console.log(`yt-dlp：${process.env.SONORA_YTDLP || (USE_LOCAL_YTDLP ? LOCAL_YTDLP : '系统 PATH')}`);
     console.log(`FFmpeg：${LOCAL_FFMPEG || '系统 PATH'}`);
     console.log(`CA 证书：${LOCAL_CA_BUNDLE || '系统默认'}`);
   });

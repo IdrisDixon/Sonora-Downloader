@@ -12,6 +12,7 @@ release-windows/
 build/
 dist/
 Sonora-Windows-Builder.zip
+Sonora-macOS-*.zip
 windows-build.log
 *.exe
 *.dmg
