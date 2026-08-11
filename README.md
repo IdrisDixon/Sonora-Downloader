@@ -1,6 +1,6 @@
 # Sonora
 
-Sonora 是一个本地运行的 YouTube 媒体工具，提供音频提取、视频下载和已有字幕导出。它包含macOS和Windows的桌面版
+Sonora 是一个本地运行的 YouTube 媒体工具，提供音频提取、视频下载和已有字幕导出。它包含 Web 版本以及 macOS 和 Windows 的桌面版
 
 > 仅下载你拥有版权、已获授权或法律允许保存的内容。使用者有责任遵守 YouTube 服务条款及所在地法律。Sonora 不绕过 DRM、付费、会员或私人内容的访问控制。
 
